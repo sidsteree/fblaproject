@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sidd And Sagie's Museum Of Leadership & Enterprise</title>
+  <meta name="description" content="A showcase museum website built for FBLA Exploring Website Design — exhibits, featured leaders, visitor info, and interactive transitions.">
+  <style>
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --accent:#ffb84d; /* warm gold */
+      --muted:#98a0b3;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:16px;
+      --max-width:1100px;
+      --ease: cubic-bezier(.22,.9,.39,1);
+      --font-sans: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #071026 100%);font-family:var(--font-sans);color:#e6eef8;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:40px 24px}
+
+    /* NAV */
+    header{position:fixed;left:0;right:0;top:18px;z-index:60;display:flex;justify-content:center;pointer-events:none}
+    nav{pointer-events:auto;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(6px);border-radius:12px;padding:10px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .brand{display:flex;align-items:center;gap:10px;padding-right:8px}
+    .logo{width:44px;height:44px;background:conic-gradient(from 200deg at 50% 50%,var(--accent),#7fd3ff,#b28dff);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#081226}
+    .title{font-weight:700;letter-spacing:0.2px}
+    .nav-links{display:flex;gap:8px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:10px;font-weight:600;color:var(--muted);transition:all .25s var(--ease)}
+    .nav-links a:hover{color:#ffffff;background:rgba(255,255,255,0.03);transform:translateY(-3px)}
+    .cta{background:linear-gradient(90deg,var(--accent),#ffd98a);color:#081226;padding:8px 12px;border-radius:10px;font-weight:700}
+
+    main{padding-top:120px}
+
+    /* PAGE TRANSITION OVERLAY */
+    .page-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#071022 0%, #071029 30%, rgba(7,16,41,0.8) 70%);z-index:90;pointer-events:none;transform:scaleY(0);transform-origin:top;transition:transform .6s var(--ease)}
+    .page-overlay.show{transform:scaleY(1)}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;padding:48px 0}
+    .hero-card{background:linear-gradient(135deg,var(--glass),var(--glass-2));border-radius:18px;padding:36px;box-shadow:0 10px 30px rgba(2,6,23,0.6);overflow:hidden}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--accent);font-weight:700;margin-bottom:12px}
+    h1{font-size:clamp(28px,4.4vw,48px);margin:0 0 12px;line-height:1.02}
+    p.lead{margin:0;color:var(--muted);font-size:1.02rem}
+    .hero-actions{margin-top:18px;display:flex;gap:12px}
+
+    /* hero visual */
+    .hero-visual{height:420px;border-radius:18px;background:linear-gradient(180deg,#081226 0%, #0b1724 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .gallery-viewport{width:88%;height:88%;border-radius:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;transform:scale(1);transition:transform .8s var(--ease)}
+    .tile{background:linear-gradient(180deg,#0b1226 0%, #081122 100%);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;justify-content:flex-end;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+    .art-thumb{width:100%;height:110px;border-radius:8px;background:linear-gradient(120deg,#13273f,#3b1652);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+
+    /* SECTIONS */
+    section{margin:64px 0}
+    .section-header{display:flex;justify-content:space-between;align-items:end;gap:12px}
+    .section-title{font-size:20px;font-weight:800}
+    .section-sub{color:var(--muted)}
+
+    /* Exhibitions calendar */
+    .calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+    .event-card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:16px;border-radius:12px;min-height:120px;display:flex;flex-direction:column;gap:8px;transition:transform .4s var(--ease),box-shadow .4s}
+    .event-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px rgba(2,6,23,0.6)}
+    .date-pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-weight:700;color:var(--accent);display:inline-block}
+
+    /* Artists grid */
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .artist-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.02);transition:transform .45s var(--ease), box-shadow .45s}
+    .artist-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 50px rgba(2,6,23,0.6)}
+    .artist-visual{height:160px;border-radius:10px;background:linear-gradient(120deg,#0f3a5b,#5b1a65);display:flex;align-items:center;justify-content:center;font-weight:800}
+    .artist-meta{padding-top:8px}
+    .artist-name{font-weight:800}
+    .artist-bio{color:var(--muted);font-size:0.95rem}
+
+    /* Visitor info */
+    .visit-grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+    .ticket{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+    .price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+
+    footer{padding:36px 0;text-align:center;color:var(--muted)}
+
+    /* SCROLL REVEALS (initial hidden state) */
+    .reveal{opacity:0;transform:translateY(20px) scale(.98);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.show{opacity:1;transform:translateY(0) scale(1)}
+
+    /* RESPONSIVE */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;gap:18px}
+      .hero-visual{height:320px}
+      .visit-grid{grid-template-columns:1fr}
+      header{top:12px}
+    }
+
+    /* small niceties */
+    .muted{color:var(--muted)}
+    .btn{padding:10px 14px;border-radius:10px;font-weight:700}
+
+    /* Focus states */
+    a:focus{outline:3px solid rgba(255,184,77,0.16);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <div class="page-overlay" id="pageOverlay" aria-hidden="true"></div>
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="logo">FB</div>
+        <div>
+          <div class="title">Sidd And Sagie's Museum<\/div>
+          <div class="muted" style="font-size:12px">Leadership & Enterprise — Culture on Display</div>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="nav-links" role="menubar">
+        <a href="#home" data-link>Home</a>
+        <a href="#exhibitions" data-link>Exhibitions</a>
+        <a href="#artists" data-link>Featured</a>
+        <a href="#visit" data-link>Visitor Info</a>
+        <a href="#about" data-link>About</a>
+        <a class="cta" href="#exhibitions" data-link>See Exhibits</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="container hero">
+      <div class="hero-card reveal">
+        <span class="kicker">FBLA Topic — Culture on Display</span>
+        <h1>Sidd And Sagie's Museum Of Leadership & Enterprise<\/h1>
+        <p class="lead">Explore exhibits that celebrate leadership, innovation, and community — from business artifacts to student entrepreneurship showcases. This mock museum is built to meet FBLA Exploring Website Design requirements and includes exhibits, featured artists (contributors), and visitor information.</p>
+        <div class="hero-actions">
+          <a class="btn cta" href="#exhibitions" data-link>Explore Exhibits</a>
+          <a class="btn" href="#visit" data-link style="background:transparent;border:1px solid rgba(255,255,255,0.04)">Plan a Visit</a>
+        </div>
+        <div style="margin-top:18px;color:var(--muted);font-size:0.92rem">Tip: Use keyboard to navigate — links smooth-scroll and pages transition.</div>
+      </div>
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="gallery-viewport" id="galleryViewport">
+          <div class="tile">
+            <div class="art-thumb">Student Startup Pitch</div>
+            <div class="muted">April 2025 • Highlights of regional pitches</div>
+          </div>
+          <div class="tile">
+            <div class="art-thumb">Historic Ledger</div>
+            <div class="muted">A look at business records from the 1920s</div>
+          </div>
+          <div class="tile">
+            <div class="art-thumb">Community Project</div>
+            <div class="muted">Designs that helped local neighborhoods</div>
+          </div>
+          <div class="tile">
+            <div class="art-thumb">Leadership Portraits</div>
+            <div class="muted">Profiles of student leaders</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="exhibitions" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Exhibitions</div>
+          <div class="section-sub">Upcoming and current exhibits — dates and short descriptions</div>
+        </div>
+        <div class="muted">Showing 4 exhibits</div>
+      </div>
+
+      <div class="calendar" id="calendar">
+        <!-- sample event cards -->
+        <article class="event-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="date-pill">Jan 5–Feb 20</div>
+            <div class="muted">Main Gallery</div>
+          </div>
+          <h3 style="margin:8px 0 0">Pixels of Progress: Student Startups</h3>
+          <p class="muted">A showcase of student-led projects and the design thinking behind them.</p>
+        </article>
+
+        <article class="event-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="date-pill">Mar 10–Apr 30</div>
+            <div class="muted">Gallery B</div>
+          </div>
+          <h3 style="margin:8px 0 0">The Leadership Lens</h3>
+          <p class="muted">Portraits and stories of local young leaders who drove change.</p>
+        </article>
+
+        <article class="event-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="date-pill">May 15–Jun 10</div>
+            <div class="muted">Special Exhibit</div>
+          </div>
+          <h3 style="margin:8px 0 0">Enterprise Through Time</h3>
+          <p class="muted">Artifacts illustrating the evolution of small business and entrepreneurship.</p>
+        </article>
+
+        <article class="event-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="date-pill">Ongoing</div>
+            <div class="muted">Virtual</div>
+          </div>
+          <h3 style="margin:8px 0 0">Virtual Gallery: Code & Creativity</h3>
+          <p class="muted">A rotating online exhibit of digital art and interactive pieces.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="artists" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Featured Contributors</div>
+          <div class="section-sub">Student artists, entrepreneurs, and community partners</div>
+        </div>
+        <div class="muted">Curated selection</div>
+      </div>
+
+      <div class="grid-cards">
+        <article class="artist-card">
+          <div class="artist-visual">A.T.</div>
+          <div class="artist-meta">
+            <div class="artist-name">Aiko Tanaka</div>
+            <div class="artist-bio">Pixel artist exploring narratives in retro game style. Her projects highlight community design and accessibility in games.</div>
+          </div>
+        </article>
+
+        <article class="artist-card">
+          <div class="artist-visual">M.S.</div>
+          <div class="artist-meta">
+            <div class="artist-name">Miguel Santos</div>
+            <div class="artist-bio">3D modeller and maker focused on small business branding through physical prototypes and environment design.</div>
+          </div>
+        </article>
+
+        <article class="artist-card">
+          <div class="artist-visual">L.G.</div>
+          <div class="artist-meta">
+            <div class="artist-name">Leila Green</div>
+            <div class="artist-bio">Digital painter and UX designer who centers sustainable design and social impact in student projects.</div>
+          </div>
+        </article>
+
+        <article class="artist-card">
+          <div class="artist-visual">S.B.</div>
+          <div class="artist-meta">
+            <div class="artist-name">Siddharth Banik</div>
+            <div class="artist-bio">Student entrepreneur blending coding and storytelling to build interactive museum experiences (mock profile).</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="visit" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Visitor Information</div>
+          <div class="section-sub">Hours, tickets, accessibility — everything you need</div>
+        </div>
+        <div class="muted">Plan ahead</div>
+      </div>
+
+      <div class="visit-grid">
+        <div>
+          <div class="ticket">
+            <h3 style="margin:0 0 8px">Tickets & Hours</h3>
+            <div class="price-row"><div class="muted">Students</div><div><strong>$5</strong></div></div>
+            <div class="price-row"><div class="muted">Adults</div><div><strong>$10</strong></div></div>
+            <div class="price-row"><div class="muted">Children under 10</div><div><strong>Free</strong></div></div>
+            <div style="padding-top:10px;color:var(--muted)">Hours: Tue–Sun • 10:00 AM — 6:00 PM</div>
+            <div style="margin-top:12px"><button class="btn cta" onclick="reserve()">Reserve Tickets</button></div>
+            <div style="margin-top:10px;color:var(--muted);font-size:0.9rem">Note: This is a mock site for FBLA competition. Tickets are not real.</div>
+          </div>
+
+          <div style="margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008))">
+            <h4 style="margin:0 0 8px">Accessibility</h4>
+            <p class="muted" style="margin:0">Wheelchair accessible, assistance available upon request. Captioned virtual tours provided for online exhibits.</p>
+          </div>
+        </div>
+
+        <aside style="position:relative;">
+          <div style="padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));">
+            <h4 style="margin:0 0 8px">Location</h4>
+            <p class="muted" style="margin:0 0 8px">Downtown FBLA Center — 123 Leadership Ave</p>
+            <div style="border-radius:8px;height:160px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#051226,#07203a);color:var(--muted)">Map screenshot</div>
+            <div style="margin-top:8px;font-size:0.9rem;color:var(--muted)">Parking & directions available onsite.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">About This Project</div>
+          <div class="section-sub">How the site meets FBLA criteria</div>
+        </div>
+        <div class="muted">Prepared for Exploring Website Design</div>
+      </div>
+
+      <div style="margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));padding:18px;border-radius:12px">
+        <ul style="margin:0;padding-left:18px;color:var(--muted)">
+          <li>Home page with navigation — present.</li>
+          <li>Exhibitions page — calendar/list of exhibits with dates & descriptions.</li>
+          <li>Featured contributors (artists/artifacts) — product-card-like layout with image, name, short bio.</li>
+          <li>Visitor information — hours, admission, tickets details included.</li>
+          <li>Responsive design and multi-device viewability. Smooth transitions and scroll reveals to enhance UX.</li>
+          <li>Sources & credits placeholder included in the footer (images and text must be cited if used).</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="container reveal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong>Sidd And Sagie's Museum Of Leadership & Enterprise<\/strong>
+          <div class="muted" style="font-size:13px">Mock site for FBLA Exploring Website Design • Updated Aug 2025</div>
+        </div>
+        <div class="muted">Made with ❤️ — follow FBLA design standards when using real logos</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scrolling + page transition overlay for nav anchors
+    const links = document.querySelectorAll('[data-link]');
+    const overlay = document.getElementById('pageOverlay');
+
+    function showOverlayForScroll(targetHash){
+      overlay.classList.add('show');
+      setTimeout(()=>{
+        const el = document.querySelector(targetHash);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      }, 180);
+      // hide overlay after scroll settle
+      setTimeout(()=>overlay.classList.remove('show'), 700);
+    }
+
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const hash = a.getAttribute('href');
+        showOverlayForScroll(hash);
+        // update URL without jumping
+        history.pushState(null,'',hash);
+      });
+    });
+
+    // IntersectionObserver for reveal animations and parallax-like effect on hero visuals
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:0.12});
+
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // small gallery auto-tilt on mouse move
+    const gallery = document.getElementById('galleryViewport');
+    if(gallery){
+      gallery.addEventListener('mousemove', (e)=>{
+        const r = gallery.getBoundingClientRect();
+        const cx = r.left + r.width/2;
+        const cy = r.top + r.height/2;
+        const dx = (e.clientX - cx) / r.width * 6; // small tilt
+        const dy = (e.clientY - cy) / r.height * 6;
+        gallery.style.transform = `rotateX(${ -dy }deg) rotateY(${ dx }deg) translateZ(0)`;
+      });
+      gallery.addEventListener('mouseleave', ()=>{gallery.style.transform='rotateX(0) rotateY(0)';});
+    }
+
+    // Scroll-based scale transform for hero visual
+    window.addEventListener('scroll', ()=>{
+      const hero = document.querySelector('.hero-visual');
+      if(!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const pct = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
+      const scale = 1 + pct*0.02; // slight zoom as you scroll into it
+      hero.style.transform = `scale(${scale})`;
+    });
+
+    // simple ticket reservation mock
+    function reserve(){
+      alert('This is a mock ticket reservation for FBLA presentation. For live events, integrate with a ticketing provider.');
+    }
+
+    // keyboard navigation: skip to sections with numbers 1-5
+    window.addEventListener('keydown',(e)=>{
+      if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      const map = { '1':'#home','2':'#exhibitions','3':'#artists','4':'#visit','5':'#about' };
+      if(map[e.key]) showOverlayForScroll(map[e.key]);
+    });
+
+    // accessibility: focus outlines on keyboard nav
+    document.addEventListener('keyup',(e)=>{if(e.key === 'Tab') document.body.classList.add('show-focus');});
+
+    // small UX: animate hero tiles in sequence after load
+    window.addEventListener('load', ()=>{
+      const tiles = document.querySelectorAll('.tile');
+      tiles.forEach((t,i)=>{ setTimeout(()=> t.style.transform = 'translateY(0) scale(1)', 200 + i*120); });
+    });
+
+  </script>
+</body>
+</html>
