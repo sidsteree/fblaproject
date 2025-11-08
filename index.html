@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Sidd & Sagie's Museum Of Leadership & Enterprise</title>
-  <meta name="description" content="A showcase museum website built for FBLA Exploring Website Design — exhibits, featured leaders, visitor info, and interactive transitions.">
+  <meta name="description" content="A museum website for FBLA Exploring Website Design. Learn about our exhibits, featured people, and visitor information.">
   <style>
     :root{
       --bg:#0a0e1a;
@@ -23,6 +23,13 @@
     html,body{height:100%;margin:0;background:radial-gradient(ellipse at top, #1a1f35 0%, var(--bg) 50%);font-family:var(--font-sans);color:#e8f0ff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max-width);margin:0 auto;padding:40px 28px}
+
+    /* LOADING SCREEN */
+    .loading-screen{position:fixed;inset:0;background:linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .6s ease, visibility .6s ease}
+    .loading-screen.hide{opacity:0;visibility:hidden}
+    .spinner{width:50px;height:50px;border:4px solid rgba(255,184,77,0.2);border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-tip{color:var(--muted);font-size:14px;text-align:center;max-width:300px;line-height:1.6}
 
     /* NAV */
     header{position:fixed;left:0;right:0;top:20px;z-index:60;display:flex;justify-content:center;pointer-events:none}
@@ -44,15 +51,13 @@
 
     /* HERO */
     .hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;padding:60px 0 80px;position:relative}
-    .hero::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle, rgba(127,211,255,0.08) 0%, transparent 70%);border-radius:50%;pointer-events:none}
     .hero-card{background:linear-gradient(135deg,var(--glass),var(--glass-2));border-radius:24px;padding:44px;box-shadow:0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.05);position:relative;overflow:hidden}
-    .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)}
     .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,184,77,0.1);color:var(--accent);font-weight:700;margin-bottom:16px;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
     h1{font-size:clamp(32px,4.8vw,54px);margin:0 0 16px;line-height:1.08;font-weight:900;background:linear-gradient(135deg, #fff 0%, #b8d4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     p.lead{margin:0;color:var(--muted);font-size:1.08rem;line-height:1.6}
     .hero-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
 
-    /* Hero visual with actual image placeholders */
+    /* Hero visual with image placeholders */
     .hero-visual{height:480px;border-radius:24px;background:linear-gradient(135deg,#0f1826 0%, #0a1420 100%);display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
     .gallery-tile{background:linear-gradient(135deg,#0d1624 0%, #0a1220 100%);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;transition:transform .4s var(--ease), box-shadow .4s;border:1px solid rgba(255,255,255,0.03);overflow:hidden}
     .gallery-tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,0.5);border-color:rgba(255,255,255,0.08)}
@@ -77,7 +82,7 @@
     .date-pill{background:rgba(255,184,77,0.12);padding:8px 12px;border-radius:10px;font-weight:700;color:var(--accent);display:inline-block;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
     .event-card h3{margin:4px 0;font-size:20px;font-weight:800}
 
-    /* Featured contributors with image placeholders */
+    /* Featured people with image placeholders */
     .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
     .artist-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);transition:all .45s var(--ease);position:relative;overflow:hidden}
     .artist-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(127,211,255,0.05), transparent);opacity:0;transition:opacity .45s}
@@ -118,16 +123,20 @@
     .btn{padding:12px 20px;border-radius:12px;font-weight:700;font-size:15px;transition:all .3s var(--ease);display:inline-block}
     .btn:hover{transform:translateY(-2px)}
 
-    /* Focus states */
     a:focus{outline:3px solid rgba(255,184,77,0.3);outline-offset:4px;border-radius:8px}
 
-    /* About section styling */
     .about-content{background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:32px;border-radius:20px;border:1px solid rgba(255,255,255,0.05)}
     .about-content ul{margin:0;padding-left:24px;color:var(--muted);line-height:1.8}
     .about-content li{margin-bottom:12px}
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="spinner"></div>
+    <div class="loading-tip" id="loadingTip">Loading...</div>
+  </div>
+
   <div class="page-overlay" id="pageOverlay" aria-hidden="true"></div>
   
   <header>
@@ -136,7 +145,7 @@
         <div class="logo">MS</div>
         <div>
           <div class="title">Sidd & Sagie's Museum</div>
-          <div class="muted" style="font-size:11px">Leadership & Enterprise — Culture on Display</div>
+          <div class="muted" style="font-size:11px">Leadership and Enterprise Museum</div>
         </div>
       </div>
       <div style="flex:1"></div>
@@ -154,16 +163,16 @@
   <main>
     <section id="home" class="container hero">
       <div class="hero-card reveal">
-        <span class="kicker">FBLA — Culture on Display</span>
+        <span class="kicker">FBLA Project</span>
         <h1>Museum Of Leadership & Enterprise</h1>
-        <p class="lead">Explore exhibits that celebrate leadership, innovation, and community — from business artifacts to student entrepreneurship showcases. This museum showcases the intersection of culture, leadership, and enterprise through carefully curated exhibits and interactive experiences.</p>
+        <p class="lead">Welcome to our museum! We have exhibits about leadership, business history, and student projects. You can learn about upcoming events, see featured people, and find information about visiting us.</p>
         <div class="hero-actions">
-          <a class="btn cta" href="#exhibitions" data-link>Explore Exhibits</a>
+          <a class="btn cta" href="#exhibitions" data-link>See Exhibits</a>
           <a class="btn" href="#visit" data-link style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">Plan Your Visit</a>
         </div>
         <div style="margin-top:20px;padding:16px;background:rgba(255,184,77,0.05);border-radius:12px;border:1px solid rgba(255,184,77,0.1)">
-          <div style="font-size:13px;color:var(--accent);font-weight:600">💡 Pro Tip</div>
-          <div style="color:var(--muted);font-size:13px;margin-top:4px">Press keys 1-5 to quickly navigate sections • All links smooth-scroll with transitions</div>
+          <div style="font-size:13px;color:var(--accent);font-weight:600">Tip</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:4px">Press keys 1 to 5 to quickly jump to different sections</div>
         </div>
       </div>
       
@@ -171,34 +180,34 @@
         <div class="gallery-tile">
           <div class="tile-img">
             <!-- Replace with: <img src="images/startup-pitch.jpg" alt="Student Startup Pitch" style="width:100%;height:100%;object-fit:cover;border-radius:12px"> -->
-            <span style="position:relative;z-index:1">📊 Pitch Deck</span>
+            <span style="position:relative;z-index:1">Pitch Deck</span>
           </div>
           <p class="tile-caption">Student Startup Showcase</p>
-          <p class="tile-meta">April 2025 • Regional finalists</p>
+          <p class="tile-meta">April 2025</p>
         </div>
         <div class="gallery-tile">
           <div class="tile-img">
             <!-- Replace with: <img src="images/historic-ledger.jpg" alt="Historic Business Ledger"> -->
-            <span style="position:relative;z-index:1">📖 Archives</span>
+            <span style="position:relative;z-index:1">Old Records</span>
           </div>
           <p class="tile-caption">Historic Ledger</p>
-          <p class="tile-meta">1920s business records</p>
+          <p class="tile-meta">From the 1920s</p>
         </div>
         <div class="gallery-tile">
           <div class="tile-img">
             <!-- Replace with: <img src="images/community-project.jpg" alt="Community Development Project"> -->
-            <span style="position:relative;z-index:1">🏘️ Impact</span>
+            <span style="position:relative;z-index:1">Community</span>
           </div>
           <p class="tile-caption">Community Projects</p>
-          <p class="tile-meta">Local neighborhood initiatives</p>
+          <p class="tile-meta">Local programs</p>
         </div>
         <div class="gallery-tile">
           <div class="tile-img">
             <!-- Replace with: <img src="images/leadership-portraits.jpg" alt="Student Leaders"> -->
-            <span style="position:relative;z-index:1">👥 Leaders</span>
+            <span style="position:relative;z-index:1">Leaders</span>
           </div>
           <p class="tile-caption">Leadership Gallery</p>
-          <p class="tile-meta">Profiles of change-makers</p>
+          <p class="tile-meta">Student leaders</p>
         </div>
       </div>
     </section>
@@ -206,47 +215,47 @@
     <section id="exhibitions" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">Current & Upcoming Exhibitions</div>
-          <div class="section-sub">Curated experiences showcasing leadership, innovation, and community impact</div>
+          <div class="section-title">Exhibitions</div>
+          <div class="section-sub">Check out our current and upcoming exhibits</div>
         </div>
-        <div class="muted" style="font-weight:600">4 Active Exhibits</div>
+        <div class="muted" style="font-weight:600">4 Exhibits</div>
       </div>
 
       <div class="calendar">
         <article class="event-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-            <div class="date-pill">Jan 5 – Feb 20</div>
+            <div class="date-pill">Jan 5 to Feb 20</div>
             <div class="muted" style="font-size:12px;font-weight:600">Main Gallery</div>
           </div>
-          <h3>Pixels of Progress: Student Startups</h3>
-          <p class="muted" style="margin:0">A showcase of student-led projects and the design thinking behind them. Features pitch decks, prototypes, and founder stories from 12 regional finalists.</p>
+          <h3>Student Startups</h3>
+          <p class="muted" style="margin:0">See projects made by students and learn about their ideas. This exhibit shows 12 different student businesses from around the area.</p>
         </article>
 
         <article class="event-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-            <div class="date-pill">Mar 10 – Apr 30</div>
+            <div class="date-pill">Mar 10 to Apr 30</div>
             <div class="muted" style="font-size:12px;font-weight:600">Gallery B</div>
           </div>
-          <h3>The Leadership Lens</h3>
-          <p class="muted" style="margin:0">Portraits and stories of local young leaders who drove meaningful change in their communities through initiative and vision.</p>
+          <h3>Young Leaders</h3>
+          <p class="muted" style="margin:0">Learn about young people in our community who made a difference. This exhibit has photos and stories about their leadership.</p>
         </article>
 
         <article class="event-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-            <div class="date-pill">May 15 – Jun 10</div>
+            <div class="date-pill">May 15 to Jun 10</div>
             <div class="muted" style="font-size:12px;font-weight:600">Special Exhibit</div>
           </div>
-          <h3>Enterprise Through Time</h3>
-          <p class="muted" style="margin:0">Artifacts illustrating the evolution of small business and entrepreneurship from the industrial revolution to the digital age.</p>
+          <h3>Business Through Time</h3>
+          <p class="muted" style="margin:0">This exhibit shows how businesses have changed over time. You can see old tools, documents, and learn about business history.</p>
         </article>
 
         <article class="event-card">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-            <div class="date-pill">Year-Round</div>
-            <div class="muted" style="font-size:12px;font-weight:600">Virtual</div>
+            <div class="date-pill">All Year</div>
+            <div class="muted" style="font-size:12px;font-weight:600">Online</div>
           </div>
-          <h3>Code & Creativity Online</h3>
-          <p class="muted" style="margin:0">A rotating digital gallery featuring interactive installations, data visualizations, and tech-driven art pieces accessible worldwide.</p>
+          <h3>Digital Gallery</h3>
+          <p class="muted" style="margin:0">Visit our online gallery anytime! We have digital art and interactive projects you can view from home.</p>
         </article>
       </div>
     </section>
@@ -255,9 +264,9 @@
       <div class="section-header">
         <div>
           <div class="section-title">Museum Team</div>
-          <div class="section-sub">Curators and directors bringing this vision to life</div>
+          <div class="section-sub">The people who run our museum</div>
         </div>
-        <div class="muted" style="font-weight:600">Leadership</div>
+        <div class="muted" style="font-weight:600">Our Team</div>
       </div>
 
       <div class="grid-cards">
@@ -268,7 +277,7 @@
           </div>
           <div>
             <div class="artist-name">Siddhanth Banik</div>
-            <div class="artist-bio">Lead Curator • Exhibitions & Collections</div>
+            <div class="artist-bio">Museum Curator</div>
           </div>
         </article>
 
@@ -279,7 +288,7 @@
           </div>
           <div>
             <div class="artist-name">Sagie Medvinsky</div>
-            <div class="artist-bio">Lead Curator • Digital Experience</div>
+            <div class="artist-bio">Museum Curator</div>
           </div>
         </article>
 
@@ -290,7 +299,7 @@
           </div>
           <div>
             <div class="artist-name">Mr. Staton</div>
-            <div class="artist-bio">Museum Director • Strategic Vision</div>
+            <div class="artist-bio">Museum Director</div>
           </div>
         </article>
 
@@ -301,7 +310,7 @@
           </div>
           <div>
             <div class="artist-name">Mrs. Gardener</div>
-            <div class="artist-bio">Museum Director • Community Relations</div>
+            <div class="artist-bio">Museum Director</div>
           </div>
         </article>
       </div>
@@ -310,69 +319,65 @@
     <section id="visit" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">Plan Your Visit</div>
-          <div class="section-sub">Hours, admission, accessibility, and location details</div>
+          <div class="section-title">Visitor Information</div>
+          <div class="section-sub">Everything you need to know before you visit</div>
         </div>
-        <div class="muted" style="font-weight:600">Visitor Info</div>
+        <div class="muted" style="font-weight:600">Plan Ahead</div>
       </div>
 
       <div class="visit-grid">
         <div>
           <div class="ticket">
-            <h3>Admission & Hours</h3>
+            <h3>Hours and Tickets</h3>
             <div class="price-row">
-              <div class="muted">Students (with ID)</div>
+              <div class="muted">Students (with school ID)</div>
               <div><strong style="font-size:20px;color:var(--accent)">$5</strong></div>
             </div>
             <div class="price-row">
-              <div class="muted">General Admission</div>
+              <div class="muted">Adults</div>
               <div><strong style="font-size:20px;color:var(--accent)">$10</strong></div>
             </div>
             <div class="price-row">
-              <div class="muted">Children under 10</div>
+              <div class="muted">Kids under 10</div>
               <div><strong style="font-size:20px;color:#7fd3ff">Free</strong></div>
             </div>
             <div style="padding-top:16px;color:var(--muted);line-height:1.6">
-              <strong style="color:#fff">Hours:</strong> Tuesday – Sunday<br>
-              10:00 AM – 6:00 PM<br>
-              <span style="font-size:13px">(Closed Mondays & major holidays)</span>
+              <strong style="color:#fff">Open Hours:</strong> Tuesday through Sunday<br>
+              10:00 AM to 6:00 PM<br>
+              <span style="font-size:13px">(Closed on Mondays)</span>
             </div>
             <div style="margin-top:20px">
-              <button class="btn cta" onclick="reserve()" style="width:100%;border:none;cursor:pointer">Reserve Tickets Online</button>
+              <button class="btn cta" onclick="reserve()" style="width:100%;border:none;cursor:pointer">Buy Tickets</button>
             </div>
             <div style="margin-top:14px;padding:12px;background:rgba(255,184,77,0.06);border-radius:10px;border:1px solid rgba(255,184,77,0.1)">
-              <div style="color:var(--accent);font-size:12px;font-weight:700">⚠️ Note</div>
-              <div style="color:var(--muted);font-size:12px;margin-top:4px">This is a mock site for FBLA competition. Ticket reservations are demonstration-only.</div>
+              <div style="color:var(--accent);font-size:12px;font-weight:700">Important Note</div>
+              <div style="color:var(--muted);font-size:12px;margin-top:4px">This is a practice website for FBLA. The ticket button does not really work.</div>
             </div>
           </div>
 
           <div style="margin-top:20px;padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(127,211,255,0.06), rgba(127,211,255,0.02));border:1px solid rgba(127,211,255,0.1)">
-            <h4 style="margin:0 0 12px;font-size:18px">♿ Accessibility</h4>
+            <h4 style="margin:0 0 12px;font-size:18px">Accessibility</h4>
             <p class="muted" style="margin:0;line-height:1.6">
-              • Full wheelchair accessibility throughout<br>
-              • Virtual tours available for online exhibits<br>
-              • ASL interpretation available upon request<br>
-              • Sensory-friendly hours: First Sunday of each month
+              Our museum is wheelchair accessible. We have elevators and ramps. You can also view some exhibits online if you cannot visit in person.
             </p>
           </div>
         </div>
 
         <aside>
           <div style="padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.05)">
-            <h4 style="margin:0 0 12px;font-size:18px">📍 Location</h4>
+            <h4 style="margin:0 0 12px;font-size:18px">Location</h4>
             <p class="muted" style="margin:0 0 16px;line-height:1.6">
               <strong style="color:#fff">Downtown FBLA Center</strong><br>
               123 Leadership Avenue<br>
-              Suite 100<br>
-              Innovation District
+              Suite 100
             </p>
             <div class="map-container">
               <!-- Replace with: <img src="images/museum-map.jpg" alt="Museum location map" style="width:100%;height:100%;object-fit:cover;border-radius:12px"> -->
-              <span style="position:relative;z-index:1">🗺️ Interactive Map</span>
+              <span style="position:relative;z-index:1">Map Goes Here</span>
             </div>
             <div style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.6">
-              <strong style="color:#fff">Parking:</strong> Free visitor parking in adjacent lot<br>
-              <strong style="color:#fff">Transit:</strong> Blue Line - Leadership Station (2 min walk)
+              <strong style="color:#fff">Parking:</strong> Free parking available<br>
+              <strong style="color:#fff">Bus:</strong> Take Blue Line to Leadership Station
             </div>
           </div>
         </aside>
@@ -382,10 +387,40 @@
     <section id="about" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">About This Project</div>
-          <div class="section-sub">Built for FBLA Exploring Website Design competition</div>
+          <div class="section-title">About This Website</div>
+          <div class="section-sub">Made for FBLA Exploring Website Design</div>
         </div>
-        <div class="muted" style="font-weight:600">Requirements</div>
+        <div class="muted" style="font-weight:600">Project Info</div>
+      </div>
+
+      <div class="about-content">
+        <h4 style="margin:0 0 16px;font-size:18px;color:#fff">What We Included</h4>
+        <ul>
+          <li><strong>Home page with navigation menu</strong> - You can click links to go to different parts of the website</li>
+          <li><strong>Exhibitions page</strong> - A list of exhibits with dates and what they are about</li>
+          <li><strong>Featured people</strong> - Cards showing the museum team with their names and jobs</li>
+          <li><strong>Visitor information</strong> - Hours, ticket prices, and how to find us</li>
+          <li><strong>Works on different devices</strong> - The website looks good on phones, tablets, and computers</li>
+          <li><strong>Easy to use</strong> - You can navigate with your mouse or keyboard</li>
+        </ul>
+        
+        <div style="margin-top:24px;padding:18px;background:rgba(255,184,77,0.06);border-radius:12px;border:1px solid rgba(255,184,77,0.1)">
+          <h4 style="margin:0 0 10px;font-size:16px;color:var(--accent)">How to Add Images</h4>
+          <p style="margin:0;color:var(--muted);font-size:14px;line-height:1.6">
+            To add real images, create a folder called "images" and add these pictures:
+          </p>
+          <ul style="margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.8">
+            <li>startup-pitch.jpg (for the startup exhibit)</li>
+            <li>historic-ledger.jpg (for the old business records)</li>
+            <li>community-project.jpg (for community projects)</li>
+            <li>leadership-portraits.jpg (for student leaders)</li>
+            <li>siddhanth-banik.jpg (Curator photo)</li>
+            <li>sagie-medvinsky.jpg (Curator photo)</li>
+            <li>mr-staton.jpg (Director photo)</li>
+            <li>mrs-gardener.jpg (Director photo)</li>
+            <li>museum-map.jpg (Location map)</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -393,23 +428,42 @@
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
         <div>
           <strong style="font-size:16px">Sidd & Sagie's Museum Of Leadership & Enterprise</strong>
-          <div class="muted" style="font-size:13px;margin-top:4px">Mock website for FBLA Exploring Website Design • 2024-2025</div>
+          <div class="muted" style="font-size:13px;margin-top:4px">FBLA Exploring Website Design Project 2024-2025</div>
         </div>
         <div style="text-align:right">
-          <div style="color:var(--accent);font-weight:700;font-size:14px">Created by Siddhanth Banik & Sagie Medvinsky</div>
-          <div class="muted" style="font-size:12px;margin-top:2px">With guidance from Mr. Staton & Mrs. Gardener</div>
+          <div style="color:var(--accent);font-weight:700;font-size:14px">Made by Siddhanth Banik and Sagie Medvinsky</div>
+          <div class="muted" style="font-size:12px;margin-top:2px">With help from Mr. Staton and Mrs. Gardener</div>
         </div>
       </div>
       <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
         <div class="muted" style="font-size:12px">
-          All images, content, and branding are for educational demonstration purposes only
+          This is a practice website made for school. All content is for demonstration only.
         </div>
       </div>
     </footer>
   </main>
 
   <script>
-    // Smooth scrolling with page transition overlay
+    // Loading screen with random tips
+    const tips = [
+      'Use keys 1-5 to navigate between sections',
+      'This is a mock site made for FBLA',
+      'Click any link in the menu to jump to that section',
+      'This website works on phones and tablets too',
+      'Press the logo to return to the home page'
+    ];
+    
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingTip = document.getElementById('loadingTip');
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+    loadingTip.textContent = randomTip;
+
+    // Hide loading screen after 4.5 seconds
+    setTimeout(() => {
+      loadingScreen.classList.add('hide');
+    }, 4500);
+
+    // Smooth scrolling with page transition
     const links = document.querySelectorAll('[data-link]');
     const overlay = document.getElementById('pageOverlay');
 
@@ -431,7 +485,7 @@
       });
     });
 
-    // Intersection Observer for scroll reveals
+    // Show elements when you scroll to them
     const observer = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -442,7 +496,7 @@
 
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    // Gallery tile stagger animation on load
+    // Animate gallery tiles when page loads
     window.addEventListener('load', ()=>{
       const tiles = document.querySelectorAll('.gallery-tile');
       tiles.forEach((t,i)=>{
@@ -456,7 +510,7 @@
       });
     });
 
-    // Parallax effect on hero visual
+    // Make hero visual move a little when you scroll
     window.addEventListener('scroll', ()=>{
       const hero = document.querySelector('.hero-visual');
       if(!hero) return;
@@ -469,16 +523,16 @@
       }
     });
 
-    // Ticket reservation mock
+    // Show message when someone clicks buy tickets
     function reserve(){
       const modal = document.createElement('div');
       modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(8px)';
       modal.innerHTML = `
         <div style="background:linear-gradient(135deg,#0f1826,#0a1420);padding:40px;border-radius:24px;max-width:500px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1)">
           <div style="font-size:48px;margin-bottom:16px">🎟️</div>
-          <h3 style="margin:0 0 12px;font-size:24px;font-weight:800">Ticket Reservation</h3>
-          <p style="color:var(--muted);margin:0 0 24px;line-height:1.6">This is a demonstration website for FBLA competition. In a live museum site, this would integrate with a ticketing provider like Eventbrite or Ticketmaster.</p>
-          <button onclick="this.parentElement.parentElement.remove()" style="padding:12px 32px;background:linear-gradient(135deg,#ffb84d,#ff8c42);color:#0a0e1a;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 16px rgba(255,184,77,0.3)">Got it!</button>
+          <h3 style="margin:0 0 12px;font-size:24px;font-weight:800">About Tickets</h3>
+          <p style="color:var(--muted);margin:0 0 24px;line-height:1.6">This is a practice website for FBLA. In a real museum website, this button would let you buy tickets online.</p>
+          <button onclick="this.parentElement.parentElement.remove()" style="padding:12px 32px;background:linear-gradient(135deg,#ffb84d,#ff8c42);color:#0a0e1a;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 16px rgba(255,184,77,0.3)">OK</button>
         </div>
       `;
       document.body.appendChild(modal);
@@ -487,7 +541,7 @@
       });
     }
 
-    // Keyboard navigation shortcuts (1-5 for sections)
+    // Use keyboard numbers to jump to sections
     window.addEventListener('keydown',(e)=>{
       if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
       const map = { '1':'#home','2':'#exhibitions','3':'#artists','4':'#visit','5':'#about' };
@@ -497,14 +551,7 @@
       }
     });
 
-    // Card hover sound effect simulation (visual feedback)
-    document.querySelectorAll('.event-card, .artist-card').forEach(card=>{
-      card.addEventListener('mouseenter', ()=>{
-        card.style.transition = 'all 0.4s cubic-bezier(.22,.9,.39,1)';
-      });
-    });
-
-    // Smooth scroll to top on logo click
+    // Click logo to go back to home
     document.querySelector('.logo').addEventListener('click', (e)=>{
       e.preventDefault();
       showOverlayForScroll('#home');
