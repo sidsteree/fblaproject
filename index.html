@@ -3,114 +3,140 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sidd And Sagie's Museum Of Leadership & Enterprise</title>
+  <title>Sidd & Sagie's Museum Of Leadership & Enterprise</title>
   <meta name="description" content="A showcase museum website built for FBLA Exploring Website Design — exhibits, featured leaders, visitor info, and interactive transitions.">
   <style>
     :root{
-      --bg:#0f1724; /* deep navy */
-      --card:#0b1220;
-      --accent:#ffb84d; /* warm gold */
-      --muted:#98a0b3;
-      --glass: rgba(255,255,255,0.04);
+      --bg:#0a0e1a;
+      --card:#0f1522;
+      --accent:#ffb84d;
+      --accent-2:#ff8c42;
+      --muted:#9ca5b8;
+      --glass: rgba(255,255,255,0.05);
       --glass-2: rgba(255,255,255,0.02);
-      --radius:16px;
-      --max-width:1100px;
+      --radius:18px;
+      --max-width:1200px;
       --ease: cubic-bezier(.22,.9,.39,1);
       --font-sans: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #071026 100%);font-family:var(--font-sans);color:#e6eef8;-webkit-font-smoothing:antialiased}
+    html,body{height:100%;margin:0;background:radial-gradient(ellipse at top, #1a1f35 0%, var(--bg) 50%);font-family:var(--font-sans);color:#e8f0ff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max-width);margin:0 auto;padding:40px 24px}
+    .container{max-width:var(--max-width);margin:0 auto;padding:40px 28px}
 
     /* NAV */
-    header{position:fixed;left:0;right:0;top:18px;z-index:60;display:flex;justify-content:center;pointer-events:none}
-    nav{pointer-events:auto;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(6px);border-radius:12px;padding:10px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    .brand{display:flex;align-items:center;gap:10px;padding-right:8px}
-    .logo{width:44px;height:44px;background:conic-gradient(from 200deg at 50% 50%,var(--accent),#7fd3ff,#b28dff);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#081226}
-    .title{font-weight:700;letter-spacing:0.2px}
-    .nav-links{display:flex;gap:8px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:10px;font-weight:600;color:var(--muted);transition:all .25s var(--ease)}
-    .nav-links a:hover{color:#ffffff;background:rgba(255,255,255,0.03);transform:translateY(-3px)}
-    .cta{background:linear-gradient(90deg,var(--accent),#ffd98a);color:#081226;padding:8px 12px;border-radius:10px;font-weight:700}
+    header{position:fixed;left:0;right:0;top:20px;z-index:60;display:flex;justify-content:center;pointer-events:none}
+    nav{pointer-events:auto;background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));backdrop-filter: blur(12px);border-radius:16px;padding:12px 20px;display:flex;gap:16px;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.08)}
+    .brand{display:flex;align-items:center;gap:12px;padding-right:12px}
+    .logo{width:48px;height:48px;background:conic-gradient(from 200deg at 50% 50%,var(--accent),#7fd3ff,#b28dff,var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#0a0e1a;font-size:18px;box-shadow:0 4px 16px rgba(255,184,77,0.3)}
+    .title{font-weight:800;letter-spacing:0.3px;font-size:15px}
+    .nav-links{display:flex;gap:6px;align-items:center}
+    .nav-links a{padding:10px 16px;border-radius:12px;font-weight:600;color:var(--muted);transition:all .3s var(--ease);font-size:14px}
+    .nav-links a:hover{color:#ffffff;background:rgba(255,255,255,0.06);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0a0e1a;padding:10px 18px;border-radius:12px;font-weight:700;box-shadow:0 4px 16px rgba(255,184,77,0.3)}
+    .cta:hover{box-shadow:0 6px 24px rgba(255,184,77,0.4);transform:translateY(-2px)}
 
-    main{padding-top:120px}
+    main{padding-top:130px}
 
-    /* PAGE TRANSITION OVERLAY */
-    .page-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#071022 0%, #071029 30%, rgba(7,16,41,0.8) 70%);z-index:90;pointer-events:none;transform:scaleY(0);transform-origin:top;transition:transform .6s var(--ease)}
+    /* PAGE TRANSITION */
+    .page-overlay{position:fixed;inset:0;background:radial-gradient(ellipse at center,#1a1f35 0%, var(--bg) 60%);z-index:90;pointer-events:none;transform:scaleY(0);transform-origin:top;transition:transform .6s var(--ease)}
     .page-overlay.show{transform:scaleY(1)}
 
     /* HERO */
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;padding:48px 0}
-    .hero-card{background:linear-gradient(135deg,var(--glass),var(--glass-2));border-radius:18px;padding:36px;box-shadow:0 10px 30px rgba(2,6,23,0.6);overflow:hidden}
-    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--accent);font-weight:700;margin-bottom:12px}
-    h1{font-size:clamp(28px,4.4vw,48px);margin:0 0 12px;line-height:1.02}
-    p.lead{margin:0;color:var(--muted);font-size:1.02rem}
-    .hero-actions{margin-top:18px;display:flex;gap:12px}
+    .hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;padding:60px 0 80px;position:relative}
+    .hero::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle, rgba(127,211,255,0.08) 0%, transparent 70%);border-radius:50%;pointer-events:none}
+    .hero-card{background:linear-gradient(135deg,var(--glass),var(--glass-2));border-radius:24px;padding:44px;box-shadow:0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.05);position:relative;overflow:hidden}
+    .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)}
+    .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,184,77,0.1);color:var(--accent);font-weight:700;margin-bottom:16px;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
+    h1{font-size:clamp(32px,4.8vw,54px);margin:0 0 16px;line-height:1.08;font-weight:900;background:linear-gradient(135deg, #fff 0%, #b8d4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    p.lead{margin:0;color:var(--muted);font-size:1.08rem;line-height:1.6}
+    .hero-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
 
-    /* hero visual */
-    .hero-visual{height:420px;border-radius:18px;background:linear-gradient(180deg,#081226 0%, #0b1724 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-    .gallery-viewport{width:88%;height:88%;border-radius:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;transform:scale(1);transition:transform .8s var(--ease)}
-    .tile{background:linear-gradient(180deg,#0b1226 0%, #081122 100%);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;justify-content:flex-end;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
-    .art-thumb{width:100%;height:110px;border-radius:8px;background:linear-gradient(120deg,#13273f,#3b1652);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    /* Hero visual with actual image placeholders */
+    .hero-visual{height:480px;border-radius:24px;background:linear-gradient(135deg,#0f1826 0%, #0a1420 100%);display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
+    .gallery-tile{background:linear-gradient(135deg,#0d1624 0%, #0a1220 100%);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;transition:transform .4s var(--ease), box-shadow .4s;border:1px solid rgba(255,255,255,0.03);overflow:hidden}
+    .gallery-tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,0.5);border-color:rgba(255,255,255,0.08)}
+    .tile-img{width:100%;height:140px;border-radius:12px;object-fit:cover;background:linear-gradient(120deg,#1a3f5f,#4a1a6f);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:12px;position:relative;overflow:hidden}
+    .tile-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);animation:shimmer 3s infinite}
+    @keyframes shimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+    .tile-caption{font-size:13px;font-weight:700;color:#fff;margin:0}
+    .tile-meta{font-size:11px;color:var(--muted);margin:0}
 
     /* SECTIONS */
-    section{margin:64px 0}
-    .section-header{display:flex;justify-content:space-between;align-items:end;gap:12px}
-    .section-title{font-size:20px;font-weight:800}
-    .section-sub{color:var(--muted)}
+    section{margin:80px 0;position:relative}
+    .section-header{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
+    .section-title{font-size:32px;font-weight:900;background:linear-gradient(135deg, #fff 0%, #b8d4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-sub{color:var(--muted);font-size:16px;margin-top:4px}
 
     /* Exhibitions calendar */
-    .calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
-    .event-card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:16px;border-radius:12px;min-height:120px;display:flex;flex-direction:column;gap:8px;transition:transform .4s var(--ease),box-shadow .4s}
-    .event-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px rgba(2,6,23,0.6)}
-    .date-pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-weight:700;color:var(--accent);display:inline-block}
+    .calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .event-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:24px;border-radius:18px;min-height:160px;display:flex;flex-direction:column;gap:12px;transition:all .4s var(--ease);border:1px solid rgba(255,255,255,0.05);position:relative;overflow:hidden}
+    .event-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg, var(--accent), var(--accent-2));transform:scaleX(0);transition:transform .4s var(--ease)}
+    .event-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.1)}
+    .event-card:hover::before{transform:scaleX(1)}
+    .date-pill{background:rgba(255,184,77,0.12);padding:8px 12px;border-radius:10px;font-weight:700;color:var(--accent);display:inline-block;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
+    .event-card h3{margin:4px 0;font-size:20px;font-weight:800}
 
-    /* Artists grid */
-    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
-    .artist-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.02);transition:transform .45s var(--ease), box-shadow .45s}
-    .artist-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 50px rgba(2,6,23,0.6)}
-    .artist-visual{height:160px;border-radius:10px;background:linear-gradient(120deg,#0f3a5b,#5b1a65);display:flex;align-items:center;justify-content:center;font-weight:800}
-    .artist-meta{padding-top:8px}
-    .artist-name{font-weight:800}
-    .artist-bio{color:var(--muted);font-size:0.95rem}
+    /* Featured contributors with image placeholders */
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+    .artist-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);transition:all .45s var(--ease);position:relative;overflow:hidden}
+    .artist-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(127,211,255,0.05), transparent);opacity:0;transition:opacity .45s}
+    .artist-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.1)}
+    .artist-card:hover::before{opacity:1}
+    .artist-photo{width:100%;height:200px;border-radius:14px;object-fit:cover;background:linear-gradient(135deg,#1a3f5f,#5b1a75);margin-bottom:14px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:48px;font-weight:900;position:relative;overflow:hidden}
+    .artist-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);animation:shimmer 4s infinite}
+    .artist-name{font-weight:800;font-size:18px;margin-bottom:4px}
+    .artist-bio{color:var(--muted);font-size:14px}
 
     /* Visitor info */
-    .visit-grid{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
-    .ticket{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
-    .price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    .visit-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+    .ticket{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:28px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    .ticket h3{margin:0 0 20px;font-size:24px;font-weight:800}
+    .price-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,0.08)}
+    .price-row:last-of-type{border:none}
+    .map-container{width:100%;height:180px;border-radius:12px;background:linear-gradient(135deg,#0a1826,#0e1f3a);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;position:relative;overflow:hidden;margin-top:12px}
+    .map-container::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');opacity:0.5}
 
-    footer{padding:36px 0;text-align:center;color:var(--muted)}
+    footer{padding:48px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.05)}
 
-    /* SCROLL REVEALS (initial hidden state) */
-    .reveal{opacity:0;transform:translateY(20px) scale(.98);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-    .reveal.show{opacity:1;transform:translateY(0) scale(1)}
+    /* SCROLL REVEALS */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+    .reveal.show{opacity:1;transform:translateY(0)}
 
     /* RESPONSIVE */
-    @media (max-width:880px){
-      .hero{grid-template-columns:1fr;gap:18px}
-      .hero-visual{height:320px}
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr;gap:24px}
+      .hero-visual{height:360px}
       .visit-grid{grid-template-columns:1fr}
-      header{top:12px}
+      header{top:16px}
+      nav{flex-wrap:wrap;padding:12px 16px}
+      .brand{width:100%}
+      .nav-links{width:100%;justify-content:space-between}
     }
 
-    /* small niceties */
     .muted{color:var(--muted)}
-    .btn{padding:10px 14px;border-radius:10px;font-weight:700}
+    .btn{padding:12px 20px;border-radius:12px;font-weight:700;font-size:15px;transition:all .3s var(--ease);display:inline-block}
+    .btn:hover{transform:translateY(-2px)}
 
     /* Focus states */
-    a:focus{outline:3px solid rgba(255,184,77,0.16);outline-offset:3px}
+    a:focus{outline:3px solid rgba(255,184,77,0.3);outline-offset:4px;border-radius:8px}
+
+    /* About section styling */
+    .about-content{background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:32px;border-radius:20px;border:1px solid rgba(255,255,255,0.05)}
+    .about-content ul{margin:0;padding-left:24px;color:var(--muted);line-height:1.8}
+    .about-content li{margin-bottom:12px}
   </style>
 </head>
 <body>
   <div class="page-overlay" id="pageOverlay" aria-hidden="true"></div>
+  
   <header>
     <nav class="container" aria-label="Primary navigation">
       <div class="brand">
-        <div class="logo">FB</div>
+        <div class="logo">MS</div>
         <div>
-          <div class="title">Sidd And Sagie's Museum</div>
-          <div class="muted" style="font-size:12px">Leadership & Enterprise — Culture on Display</div>
+          <div class="title">Sidd & Sagie's Museum</div>
+          <div class="muted" style="font-size:11px">Leadership & Enterprise — Culture on Display</div>
         </div>
       </div>
       <div style="flex:1"></div>
@@ -118,9 +144,9 @@
         <a href="#home" data-link>Home</a>
         <a href="#exhibitions" data-link>Exhibitions</a>
         <a href="#artists" data-link>Featured</a>
-        <a href="#visit" data-link>Visitor Info</a>
+        <a href="#visit" data-link>Visit</a>
         <a href="#about" data-link>About</a>
-        <a class="cta" href="#exhibitions" data-link>See Exhibits</a>
+        <a class="cta" href="#exhibitions" data-link>Explore</a>
       </div>
     </nav>
   </header>
@@ -128,33 +154,51 @@
   <main>
     <section id="home" class="container hero">
       <div class="hero-card reveal">
-        <span class="kicker">FBLA Topic — Culture on Display</span>
-        <h1>Sidd And Sagie's Museum Of Leadership & Enterprise</h1>
-        <p class="lead">Explore exhibits that celebrate leadership, innovation, and community — from business artifacts to student entrepreneurship showcases. This mock museum is built to meet FBLA Exploring Website Design requirements and includes exhibits, featured artists (contributors), and visitor information.</p>
+        <span class="kicker">FBLA — Culture on Display</span>
+        <h1>Museum Of Leadership & Enterprise</h1>
+        <p class="lead">Explore exhibits that celebrate leadership, innovation, and community — from business artifacts to student entrepreneurship showcases. This museum showcases the intersection of culture, leadership, and enterprise through carefully curated exhibits and interactive experiences.</p>
         <div class="hero-actions">
           <a class="btn cta" href="#exhibitions" data-link>Explore Exhibits</a>
-          <a class="btn" href="#visit" data-link style="background:transparent;border:1px solid rgba(255,255,255,0.04)">Plan a Visit</a>
+          <a class="btn" href="#visit" data-link style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">Plan Your Visit</a>
         </div>
-        <div style="margin-top:18px;color:var(--muted);font-size:0.92rem">Tip: Use keyboard to navigate — links smooth-scroll and pages transition.</div>
+        <div style="margin-top:20px;padding:16px;background:rgba(255,184,77,0.05);border-radius:12px;border:1px solid rgba(255,184,77,0.1)">
+          <div style="font-size:13px;color:var(--accent);font-weight:600">💡 Pro Tip</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:4px">Press keys 1-5 to quickly navigate sections • All links smooth-scroll with transitions</div>
+        </div>
       </div>
-      <div class="hero-visual reveal" aria-hidden="true">
-        <div class="gallery-viewport" id="galleryViewport">
-          <div class="tile">
-            <div class="art-thumb">Student Startup Pitch</div>
-            <div class="muted">April 2025 • Highlights of regional pitches</div>
+      
+      <div class="hero-visual reveal" aria-label="Gallery preview">
+        <div class="gallery-tile">
+          <div class="tile-img">
+            <!-- Replace with: <img src="images/startup-pitch.jpg" alt="Student Startup Pitch" style="width:100%;height:100%;object-fit:cover;border-radius:12px"> -->
+            <span style="position:relative;z-index:1">📊 Pitch Deck</span>
           </div>
-          <div class="tile">
-            <div class="art-thumb">Historic Ledger</div>
-            <div class="muted">A look at business records from the 1920s</div>
+          <p class="tile-caption">Student Startup Showcase</p>
+          <p class="tile-meta">April 2025 • Regional finalists</p>
+        </div>
+        <div class="gallery-tile">
+          <div class="tile-img">
+            <!-- Replace with: <img src="images/historic-ledger.jpg" alt="Historic Business Ledger"> -->
+            <span style="position:relative;z-index:1">📖 Archives</span>
           </div>
-          <div class="tile">
-            <div class="art-thumb">Community Project</div>
-            <div class="muted">Designs that helped local neighborhoods</div>
+          <p class="tile-caption">Historic Ledger</p>
+          <p class="tile-meta">1920s business records</p>
+        </div>
+        <div class="gallery-tile">
+          <div class="tile-img">
+            <!-- Replace with: <img src="images/community-project.jpg" alt="Community Development Project"> -->
+            <span style="position:relative;z-index:1">🏘️ Impact</span>
           </div>
-          <div class="tile">
-            <div class="art-thumb">Leadership Portraits</div>
-            <div class="muted">Profiles of student leaders</div>
+          <p class="tile-caption">Community Projects</p>
+          <p class="tile-meta">Local neighborhood initiatives</p>
+        </div>
+        <div class="gallery-tile">
+          <div class="tile-img">
+            <!-- Replace with: <img src="images/leadership-portraits.jpg" alt="Student Leaders"> -->
+            <span style="position:relative;z-index:1">👥 Leaders</span>
           </div>
+          <p class="tile-caption">Leadership Gallery</p>
+          <p class="tile-meta">Profiles of change-makers</p>
         </div>
       </div>
     </section>
@@ -162,48 +206,47 @@
     <section id="exhibitions" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">Exhibitions</div>
-          <div class="section-sub">Upcoming and current exhibits — dates and short descriptions</div>
+          <div class="section-title">Current & Upcoming Exhibitions</div>
+          <div class="section-sub">Curated experiences showcasing leadership, innovation, and community impact</div>
         </div>
-        <div class="muted">Showing 4 exhibits</div>
+        <div class="muted" style="font-weight:600">4 Active Exhibits</div>
       </div>
 
-      <div class="calendar" id="calendar">
-        <!-- sample event cards -->
+      <div class="calendar">
         <article class="event-card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="date-pill">Jan 5–Feb 20</div>
-            <div class="muted">Main Gallery</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="date-pill">Jan 5 – Feb 20</div>
+            <div class="muted" style="font-size:12px;font-weight:600">Main Gallery</div>
           </div>
-          <h3 style="margin:8px 0 0">Pixels of Progress: Student Startups</h3>
-          <p class="muted">A showcase of student-led projects and the design thinking behind them.</p>
+          <h3>Pixels of Progress: Student Startups</h3>
+          <p class="muted" style="margin:0">A showcase of student-led projects and the design thinking behind them. Features pitch decks, prototypes, and founder stories from 12 regional finalists.</p>
         </article>
 
         <article class="event-card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="date-pill">Mar 10–Apr 30</div>
-            <div class="muted">Gallery B</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="date-pill">Mar 10 – Apr 30</div>
+            <div class="muted" style="font-size:12px;font-weight:600">Gallery B</div>
           </div>
-          <h3 style="margin:8px 0 0">The Leadership Lens</h3>
-          <p class="muted">Portraits and stories of local young leaders who drove change.</p>
+          <h3>The Leadership Lens</h3>
+          <p class="muted" style="margin:0">Portraits and stories of local young leaders who drove meaningful change in their communities through initiative and vision.</p>
         </article>
 
         <article class="event-card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="date-pill">May 15–Jun 10</div>
-            <div class="muted">Special Exhibit</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="date-pill">May 15 – Jun 10</div>
+            <div class="muted" style="font-size:12px;font-weight:600">Special Exhibit</div>
           </div>
-          <h3 style="margin:8px 0 0">Enterprise Through Time</h3>
-          <p class="muted">Artifacts illustrating the evolution of small business and entrepreneurship.</p>
+          <h3>Enterprise Through Time</h3>
+          <p class="muted" style="margin:0">Artifacts illustrating the evolution of small business and entrepreneurship from the industrial revolution to the digital age.</p>
         </article>
 
         <article class="event-card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="date-pill">Ongoing</div>
-            <div class="muted">Virtual</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div class="date-pill">Year-Round</div>
+            <div class="muted" style="font-size:12px;font-weight:600">Virtual</div>
           </div>
-          <h3 style="margin:8px 0 0">Virtual Gallery: Code & Creativity</h3>
-          <p class="muted">A rotating online exhibit of digital art and interactive pieces.</p>
+          <h3>Code & Creativity Online</h3>
+          <p class="muted" style="margin:0">A rotating digital gallery featuring interactive installations, data visualizations, and tech-driven art pieces accessible worldwide.</p>
         </article>
       </div>
     </section>
@@ -211,42 +254,54 @@
     <section id="artists" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">Featured Contributors</div>
-          <div class="section-sub">Museum Curators And Directors</div>
+          <div class="section-title">Museum Team</div>
+          <div class="section-sub">Curators and directors bringing this vision to life</div>
         </div>
-        <div class="muted">Curated selection</div>
+        <div class="muted" style="font-weight:600">Leadership</div>
       </div>
 
       <div class="grid-cards">
         <article class="artist-card">
-          <div class="artist-visual">A.T.</div>
-          <div class="artist-meta">
+          <div class="artist-photo">
+            <!-- Replace with: <img src="images/siddhanth-banik.jpg" alt="Siddhanth Banik" style="width:100%;height:100%;object-fit:cover;border-radius:14px"> -->
+            <span style="position:relative;z-index:1">SB</span>
+          </div>
+          <div>
             <div class="artist-name">Siddhanth Banik</div>
-            <div class="artist-bio">Museum Curator</div>
+            <div class="artist-bio">Lead Curator • Exhibitions & Collections</div>
           </div>
         </article>
 
         <article class="artist-card">
-          <div class="artist-visual">M.S.</div>
-          <div class="artist-meta">
+          <div class="artist-photo">
+            <!-- Replace with: <img src="images/sagie-medvinsky.jpg" alt="Sagie Medvinsky"> -->
+            <span style="position:relative;z-index:1">SM</span>
+          </div>
+          <div>
             <div class="artist-name">Sagie Medvinsky</div>
-            <div class="artist-bio">Museum Curator</div>
+            <div class="artist-bio">Lead Curator • Digital Experience</div>
           </div>
         </article>
 
         <article class="artist-card">
-          <div class="artist-visual">L.G.</div>
-          <div class="artist-meta">
+          <div class="artist-photo">
+            <!-- Replace with: <img src="images/mr-staton.jpg" alt="Mr. Staton"> -->
+            <span style="position:relative;z-index:1">MS</span>
+          </div>
+          <div>
             <div class="artist-name">Mr. Staton</div>
-            <div class="artist-bio">Museum Director</div>
+            <div class="artist-bio">Museum Director • Strategic Vision</div>
           </div>
         </article>
 
         <article class="artist-card">
-          <div class="artist-visual">S.B.</div>
-          <div class="artist-meta">
+          <div class="artist-photo">
+            <!-- Replace with: <img src="images/mrs-gardener.jpg" alt="Mrs. Gardener"> -->
+            <span style="position:relative;z-index:1">MG</span>
+          </div>
+          <div>
             <div class="artist-name">Mrs. Gardener</div>
-            <div class="artist-bio">Museum Director</div>
+            <div class="artist-bio">Museum Director • Community Relations</div>
           </div>
         </article>
       </div>
@@ -255,155 +310,52 @@
     <section id="visit" class="container reveal">
       <div class="section-header">
         <div>
-          <div class="section-title">Visitor Information</div>
-          <div class="section-sub">Hours, tickets, accessibility — everything you need</div>
+          <div class="section-title">Plan Your Visit</div>
+          <div class="section-sub">Hours, admission, accessibility, and location details</div>
         </div>
-        <div class="muted">Plan ahead</div>
+        <div class="muted" style="font-weight:600">Visitor Info</div>
       </div>
 
       <div class="visit-grid">
         <div>
           <div class="ticket">
-            <h3 style="margin:0 0 8px">Tickets & Hours</h3>
-            <div class="price-row"><div class="muted">Students</div><div><strong>$5</strong></div></div>
-            <div class="price-row"><div class="muted">Adults</div><div><strong>$10</strong></div></div>
-            <div class="price-row"><div class="muted">Children under 10</div><div><strong>Free</strong></div></div>
-            <div style="padding-top:10px;color:var(--muted)">Hours: Tue–Sun • 10:00 AM — 6:00 PM</div>
-            <div style="margin-top:12px"><button class="btn cta" onclick="reserve()">Reserve Tickets</button></div>
-            <div style="margin-top:10px;color:var(--muted);font-size:0.9rem">Note: This is a mock site for FBLA competition. Tickets are not real.</div>
+            <h3>Admission & Hours</h3>
+            <div class="price-row">
+              <div class="muted">Students (with ID)</div>
+              <div><strong style="font-size:20px;color:var(--accent)">$5</strong></div>
+            </div>
+            <div class="price-row">
+              <div class="muted">General Admission</div>
+              <div><strong style="font-size:20px;color:var(--accent)">$10</strong></div>
+            </div>
+            <div class="price-row">
+              <div class="muted">Children under 10</div>
+              <div><strong style="font-size:20px;color:#7fd3ff">Free</strong></div>
+            </div>
+            <div style="padding-top:16px;color:var(--muted);line-height:1.6">
+              <strong style="color:#fff">Hours:</strong> Tuesday – Sunday<br>
+              10:00 AM – 6:00 PM<br>
+              <span style="font-size:13px">(Closed Mondays & major holidays)</span>
+            </div>
+            <div style="margin-top:20px">
+              <button class="btn cta" onclick="reserve()" style="width:100%;border:none;cursor:pointer">Reserve Tickets Online</button>
+            </div>
+            <div style="margin-top:14px;padding:12px;background:rgba(255,184,77,0.06);border-radius:10px;border:1px solid rgba(255,184,77,0.1)">
+              <div style="color:var(--accent);font-size:12px;font-weight:700">⚠️ Note</div>
+              <div style="color:var(--muted);font-size:12px;margin-top:4px">This is a mock site for FBLA competition. Ticket reservations are demonstration-only.</div>
+            </div>
           </div>
 
-          <div style="margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008))">
-            <h4 style="margin:0 0 8px">Accessibility</h4>
-            <p class="muted" style="margin:0">Wheelchair accessible,virtual tours provided for online exhibits.</p>
+          <div style="margin-top:20px;padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(127,211,255,0.06), rgba(127,211,255,0.02));border:1px solid rgba(127,211,255,0.1)">
+            <h4 style="margin:0 0 12px;font-size:18px">♿ Accessibility</h4>
+            <p class="muted" style="margin:0;line-height:1.6">
+              • Full wheelchair accessibility throughout<br>
+              • Virtual tours available for online exhibits<br>
+              • ASL interpretation available upon request<br>
+              • Sensory-friendly hours: First Sunday of each month
+            </p>
           </div>
         </div>
 
-        <aside style="position:relative;">
-          <div style="padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));">
-            <h4 style="margin:0 0 8px">Location</h4>
-            <p class="muted" style="margin:0 0 8px">Downtown FBLA Center — 123 Leadership Ave</p>
-            <div style="border-radius:8px;height:160px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#051226,#07203a);color:var(--muted)">Map screenshot</div>
-            <div style="margin-top:8px;font-size:0.9rem;color:var(--muted)">Parking & directions available onsite.</div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="about" class="container reveal">
-      <div class="section-header">
-        <div>
-          <div class="section-title">About This Project</div>
-          <div class="section-sub">How the site meets FBLA criteria</div>
-        </div>
-        <div class="muted">Prepared for Exploring Website Design</div>
-      </div>
-
-      <div style="margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));padding:18px;border-radius:12px">
-        <ul style="margin:0;padding-left:18px;color:var(--muted)">
-          <li>Home page with navigation — present.</li>
-          <li>Exhibitions page — calendar/list of exhibits with dates & descriptions.</li>
-          <li>Featured contributors (artists/artifacts) — product-card-like layout with image, name, short bio.</li>
-          <li>Visitor information — hours, admission, tickets details included.</li>
-          <li>Responsive design and multi-device viewability. Smooth transitions and scroll reveals to enhance UX.</li>
-          <li>Sources & credits placeholder included in the footer (images and text must be cited if used).</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer class="container reveal">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div>
-          <strong>Sidd And Sagie's Museum Of Leadership & Enterprise</strong>
-          <div class="muted" style="font-size:13px">Mock site for FBLA Exploring Website Design</div>
-        </div>
-        <div class="muted">Hope You Like Our Website!</div>
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // Smooth scrolling + page transition overlay for nav anchors
-    const links = document.querySelectorAll('[data-link]');
-    const overlay = document.getElementById('pageOverlay');
-
-    function showOverlayForScroll(targetHash){
-      overlay.classList.add('show');
-      setTimeout(()=>{
-        const el = document.querySelector(targetHash);
-        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-      }, 180);
-      // hide overlay after scroll settle
-      setTimeout(()=>overlay.classList.remove('show'), 700);
-    }
-
-    links.forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const hash = a.getAttribute('href');
-        showOverlayForScroll(hash);
-        // update URL without jumping
-        history.pushState(null,'',hash);
-      });
-    });
-
-    // IntersectionObserver for reveal animations and parallax-like effect on hero visuals
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('show');
-        }
-      });
-    },{threshold:0.12});
-
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-    // small gallery auto-tilt on mouse move
-    const gallery = document.getElementById('galleryViewport');
-    if(gallery){
-      gallery.addEventListener('mousemove', (e)=>{
-        const r = gallery.getBoundingClientRect();
-        const cx = r.left + r.width/2;
-        const cy = r.top + r.height/2;
-        const dx = (e.clientX - cx) / r.width * 6; // small tilt
-        const dy = (e.clientY - cy) / r.height * 6;
-        gallery.style.transform = `rotateX(${ -dy }deg) rotateY(${ dx }deg) translateZ(0)`;
-      });
-      gallery.addEventListener('mouseleave', ()=>{gallery.style.transform='rotateX(0) rotateY(0)';});
-    }
-
-    // Scroll-based scale transform for hero visual
-    window.addEventListener('scroll', ()=>{
-      const hero = document.querySelector('.hero-visual');
-      if(!hero) return;
-      const rect = hero.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const pct = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
-      const scale = 1 + pct*0.02; // slight zoom as you scroll into it
-      hero.style.transform = `scale(${scale})`;
-    });
-
-    // simple ticket reservation mock
-    function reserve(){
-      alert('This is a mock ticket reservation for FBLA presentation. For live events, integrate with a ticketing provider.');
-    }
-
-    // keyboard navigation: skip to sections with numbers 1-5
-    window.addEventListener('keydown',(e)=>{
-      if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
-      const map = { '1':'#home','2':'#exhibitions','3':'#artists','4':'#visit','5':'#about' };
-      if(map[e.key]) showOverlayForScroll(map[e.key]);
-    });
-
-    // accessibility: focus outlines on keyboard nav
-    document.addEventListener('keyup',(e)=>{if(e.key === 'Tab') document.body.classList.add('show-focus');});
-
-    // small UX: animate hero tiles in sequence after load
-    window.addEventListener('load', ()=>{
-      const tiles = document.querySelectorAll('.tile');
-      tiles.forEach((t,i)=>{ setTimeout(()=> t.style.transform = 'translateY(0) scale(1)', 200 + i*120); });
-    });
-
-  </script>
-</body>
-</html>
+        <aside>
+          <div style="padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015
