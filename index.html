@@ -358,4 +358,189 @@
         </div>
 
         <aside>
-          <div style="padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015
+          <div style="padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.05)">
+            <h4 style="margin:0 0 12px;font-size:18px">📍 Location</h4>
+            <p class="muted" style="margin:0 0 16px;line-height:1.6">
+              <strong style="color:#fff">Downtown FBLA Center</strong><br>
+              123 Leadership Avenue<br>
+              Suite 100<br>
+              Innovation District
+            </p>
+            <div class="map-container">
+              <!-- Replace with: <img src="images/museum-map.jpg" alt="Museum location map" style="width:100%;height:100%;object-fit:cover;border-radius:12px"> -->
+              <span style="position:relative;z-index:1">🗺️ Interactive Map</span>
+            </div>
+            <div style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.6">
+              <strong style="color:#fff">Parking:</strong> Free visitor parking in adjacent lot<br>
+              <strong style="color:#fff">Transit:</strong> Blue Line - Leadership Station (2 min walk)
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">About This Project</div>
+          <div class="section-sub">Built for FBLA Exploring Website Design competition</div>
+        </div>
+        <div class="muted" style="font-weight:600">Requirements</div>
+      </div>
+
+      <div class="about-content">
+        <h4 style="margin:0 0 16px;font-size:18px;color:#fff">FBLA Criteria Checklist</h4>
+        <ul>
+          <li><strong>Home page with navigation</strong> — Implemented with fixed header, smooth scrolling, and keyboard shortcuts</li>
+          <li><strong>Exhibitions page</strong> — Calendar/list format with dates, descriptions, and locations for 4 exhibits</li>
+          <li><strong>Featured contributors</strong> — Museum team showcased with image placeholders, names, and roles</li>
+          <li><strong>Visitor information</strong> — Complete details on hours, admission pricing, accessibility, and location</li>
+          <li><strong>Responsive design</strong> — Fully responsive layout optimized for desktop, tablet, and mobile devices</li>
+          <li><strong>Visual enhancements</strong> — Scroll reveals, page transitions, hover effects, and interactive animations</li>
+          <li><strong>Accessibility</strong> — Semantic HTML, ARIA labels, focus states, and keyboard navigation support</li>
+        </ul>
+        
+        <div style="margin-top:24px;padding:18px;background:rgba(255,184,77,0.06);border-radius:12px;border:1px solid rgba(255,184,77,0.1)">
+          <h4 style="margin:0 0 10px;font-size:16px;color:var(--accent)">📸 Image Placeholders</h4>
+          <p style="margin:0;color:var(--muted);font-size:14px;line-height:1.6">
+            Replace the emoji placeholders with actual images in your repository:
+          </p>
+          <ul style="margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.8">
+            <li><code>images/startup-pitch.jpg</code> — Student pitch deck showcase</li>
+            <li><code>images/historic-ledger.jpg</code> — Vintage business records</li>
+            <li><code>images/community-project.jpg</code> — Local development project</li>
+            <li><code>images/leadership-portraits.jpg</code> — Student leaders gallery</li>
+            <li><code>images/siddhanth-banik.jpg</code> — Curator portrait (200x200px recommended)</li>
+            <li><code>images/sagie-medvinsky.jpg</code> — Curator portrait</li>
+            <li><code>images/mr-staton.jpg</code> — Director portrait</li>
+            <li><code>images/mrs-gardener.jpg</code> — Director portrait</li>
+            <li><code>images/museum-map.jpg</code> — Location map screenshot</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="container reveal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <div>
+          <strong style="font-size:16px">Sidd & Sagie's Museum Of Leadership & Enterprise</strong>
+          <div class="muted" style="font-size:13px;margin-top:4px">Mock website for FBLA Exploring Website Design • 2024-2025</div>
+        </div>
+        <div style="text-align:right">
+          <div style="color:var(--accent);font-weight:700;font-size:14px">Created by Siddhanth Banik & Sagie Medvinsky</div>
+          <div class="muted" style="font-size:12px;margin-top:2px">With guidance from Mr. Staton & Mrs. Gardener</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
+        <div class="muted" style="font-size:12px">
+          All images, content, and branding are for educational demonstration purposes only
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scrolling with page transition overlay
+    const links = document.querySelectorAll('[data-link]');
+    const overlay = document.getElementById('pageOverlay');
+
+    function showOverlayForScroll(targetHash){
+      overlay.classList.add('show');
+      setTimeout(()=>{
+        const el = document.querySelector(targetHash);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      }, 200);
+      setTimeout(()=>overlay.classList.remove('show'), 750);
+    }
+
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const hash = a.getAttribute('href');
+        showOverlayForScroll(hash);
+        history.pushState(null,'',hash);
+      });
+    });
+
+    // Intersection Observer for scroll reveals
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:0.15});
+
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Gallery tile stagger animation on load
+    window.addEventListener('load', ()=>{
+      const tiles = document.querySelectorAll('.gallery-tile');
+      tiles.forEach((t,i)=>{
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(20px)';
+        setTimeout(()=>{
+          t.style.transition = 'all 0.6s cubic-bezier(.22,.9,.39,1)';
+          t.style.opacity = '1';
+          t.style.transform = 'translateY(0)';
+        }, 100 + i*120);
+      });
+    });
+
+    // Parallax effect on hero visual
+    window.addEventListener('scroll', ()=>{
+      const hero = document.querySelector('.hero-visual');
+      if(!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if(rect.top < vh && rect.bottom > 0){
+        const pct = Math.max(0, Math.min(1, 1 - (rect.top / vh)));
+        const translateY = pct * 20;
+        hero.style.transform = `translateY(${translateY}px)`;
+      }
+    });
+
+    // Ticket reservation mock
+    function reserve(){
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(8px)';
+      modal.innerHTML = `
+        <div style="background:linear-gradient(135deg,#0f1826,#0a1420);padding:40px;border-radius:24px;max-width:500px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1)">
+          <div style="font-size:48px;margin-bottom:16px">🎟️</div>
+          <h3 style="margin:0 0 12px;font-size:24px;font-weight:800">Ticket Reservation</h3>
+          <p style="color:var(--muted);margin:0 0 24px;line-height:1.6">This is a demonstration website for FBLA competition. In a live museum site, this would integrate with a ticketing provider like Eventbrite or Ticketmaster.</p>
+          <button onclick="this.parentElement.parentElement.remove()" style="padding:12px 32px;background:linear-gradient(135deg,#ffb84d,#ff8c42);color:#0a0e1a;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 16px rgba(255,184,77,0.3)">Got it!</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e)=>{
+        if(e.target === modal) modal.remove();
+      });
+    }
+
+    // Keyboard navigation shortcuts (1-5 for sections)
+    window.addEventListener('keydown',(e)=>{
+      if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      const map = { '1':'#home','2':'#exhibitions','3':'#artists','4':'#visit','5':'#about' };
+      if(map[e.key]) {
+        e.preventDefault();
+        showOverlayForScroll(map[e.key]);
+      }
+    });
+
+    // Card hover sound effect simulation (visual feedback)
+    document.querySelectorAll('.event-card, .artist-card').forEach(card=>{
+      card.addEventListener('mouseenter', ()=>{
+        card.style.transition = 'all 0.4s cubic-bezier(.22,.9,.39,1)';
+      });
+    });
+
+    // Smooth scroll to top on logo click
+    document.querySelector('.logo').addEventListener('click', (e)=>{
+      e.preventDefault();
+      showOverlayForScroll('#home');
+      history.pushState(null,'','#home');
+    });
+  </script>
+</body>
+</html>
