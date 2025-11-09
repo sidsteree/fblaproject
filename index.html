@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>FBLA's Museum Of Leadership & Enterprise</title>
-  <meta name="description" content="A museum website for FBLA Exploring Website Design. Learn about our exhibits, featured people, and information for visitors.">
+  <title>Sidd & Sagie's Museum Of Leadership & Enterprise</title>
+  <meta name="description" content="A museum website for FBLA Exploring Website Design. Learn about our exhibits, featured people, and visitor information.">
   <style>
     :root{
       --bg:#0a0e1a;
@@ -337,7 +337,9 @@
         </article>
 
         <article class="artist-card">
-          <div class="artist-photo"><img src="images/mrs-gardener.jpg" alt="Mrs. Gardener">
+          <div class="artist-photo">
+            <!-- Replace with: <img src="images/mrs-gardener.jpg" alt="Mrs. Gardener"> -->
+            <span style="position:relative;z-index:1">MG</span>
           </div>
           <div>
             <div class="artist-name">Mrs. Gardener</div>
@@ -398,19 +400,68 @@
           <div style="padding:24px;border-radius:18px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.05)">
             <h4 style="margin:0 0 12px;font-size:18px">Location</h4>
             <p class="muted" style="margin:0 0 16px;line-height:1.6">
-              <strong style="color:#fff">Carnage Magnet Middle School</strong><br>
-              1425 Carnage Dr, Raleigh, NC 27610<br>
-              
+              <strong style="color:#fff">Downtown FBLA Center</strong><br>
+              123 Leadership Avenue<br>
+              Suite 100
             </p>
             <div class="map-container">
-              <img src="images/museum-map.jpg" alt="Museum location map" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+              <!-- Replace with: <img src="images/museum-map.jpg" alt="Museum location map" style="width:100%;height:100%;object-fit:cover;border-radius:12px"> -->
+              <span style="position:relative;z-index:1">Map Goes Here</span>
             </div>
             <div style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.6">
               <strong style="color:#fff">Parking:</strong> Free parking available<br>
-            
+              <strong style="color:#fff">Bus:</strong> Take Blue Line to Leadership Station
             </div>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section id="reviews" class="container reveal">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Visitor Reviews</div>
+          <div class="section-sub">See what people are saying about our museum</div>
+        </div>
+        <div class="muted" style="font-weight:600" id="reviewCount">0 Reviews</div>
+      </div>
+
+      <div style="background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:32px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);margin-bottom:24px">
+        <h4 style="margin:0 0 20px;font-size:18px;color:#fff">Leave a Review</h4>
+        <form id="reviewForm" onsubmit="submitReview(event)">
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:8px;color:var(--muted);font-size:14px">Your Name</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <input type="text" id="firstName" placeholder="First Name" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:#fff;font-family:var(--font-sans);font-size:14px">
+              <input type="text" id="lastName" placeholder="Last Name" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:#fff;font-family:var(--font-sans);font-size:14px">
+            </div>
+          </div>
+          
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:8px;color:var(--muted);font-size:14px">Rating</label>
+            <div id="starRating" style="display:flex;gap:8px;font-size:32px;cursor:pointer">
+              <span class="star" data-rating="1">☆</span>
+              <span class="star" data-rating="2">☆</span>
+              <span class="star" data-rating="3">☆</span>
+              <span class="star" data-rating="4">☆</span>
+              <span class="star" data-rating="5">☆</span>
+            </div>
+            <input type="hidden" id="rating" required>
+          </div>
+
+          <div style="margin-bottom:16px">
+            <label style="display:block;margin-bottom:8px;color:var(--muted);font-size:14px">Your Review (max 30 words)</label>
+            <textarea id="reviewText" placeholder="Share your experience..." required maxlength="200" style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:#fff;font-family:var(--font-sans);font-size:14px;min-height:100px;resize:vertical"></textarea>
+            <div style="text-align:right;margin-top:4px;color:var(--muted);font-size:12px" id="wordCount">0 / 30 words</div>
+          </div>
+
+          <button type="submit" class="btn cta" style="width:100%;border:none;cursor:pointer">Submit Review</button>
+        </form>
+      </div>
+
+      <div id="reviewsContainer">
+        <div id="reviewsList"></div>
+        <div id="pagination" style="display:flex;justify-content:center;gap:12px;margin-top:24px;align-items:center"></div>
       </div>
     </section>
 
@@ -439,17 +490,17 @@
     <footer class="container reveal">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
         <div>
-          <strong style="font-size:16px">FBLA's Museum Of Leadership & Enterprise</strong>
-          <div class="muted" style="font-size:13px;margin-top:4px">FBLA Exploring Website Design Project 2025-2026</div>
+          <strong style="font-size:16px">Sidd & Sagie's Museum Of Leadership & Enterprise</strong>
+          <div class="muted" style="font-size:13px;margin-top:4px">FBLA Exploring Website Design Project 2024-2025</div>
         </div>
         <div style="text-align:right">
-          <div style="color:var(--accent);font-weight:700;font-size:14px">Made by Siddhanth Banik, Vishwaas Polavarapu and Sagie Medvinsky</div>
-          <div class="muted" style="font-size:12px;margin-top:2px">With info provided from Mr. Staton and Mrs. Gardener</div>
+          <div style="color:var(--accent);font-weight:700;font-size:14px">Made by Siddhanth Banik and Sagie Medvinsky</div>
+          <div class="muted" style="font-size:12px;margin-top:2px">With help from Mr. Staton and Mrs. Gardener</div>
         </div>
       </div>
       <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
         <div class="muted" style="font-size:12px">
-          This is a mock website made for FBLA it is not functional so you cannot buy tickets.
+          This is a practice website made for school. All content is for demonstration only.
         </div>
       </div>
     </footer>
