@@ -24,14 +24,14 @@
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max-width);margin:0 auto;padding:40px 28px}
 
-    /* LOADING SCREEN */
+
     .loading-screen{position:fixed;inset:0;background:linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .6s ease, visibility .6s ease}
     .loading-screen.hide{opacity:0;visibility:hidden}
     .spinner{width:50px;height:50px;border:4px solid rgba(255,184,77,0.2);border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     .loading-tip{color:var(--muted);font-size:14px;text-align:center;max-width:300px;line-height:1.6}
 
-    /* NAV */
+
     header{position:fixed;left:0;right:0;top:20px;z-index:60;display:flex;justify-content:center;pointer-events:none}
     nav{pointer-events:auto;background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));backdrop-filter: blur(12px);border-radius:16px;padding:12px 20px;display:flex;gap:16px;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.08)}
     .brand{display:flex;align-items:center;gap:12px;padding-right:12px}
@@ -45,11 +45,11 @@
 
     main{padding-top:130px}
 
-    /* PAGE TRANSITION */
+
     .page-overlay{position:fixed;inset:0;background:radial-gradient(ellipse at center,#1a1f35 0%, var(--bg) 60%);z-index:90;pointer-events:none;transform:scaleY(0);transform-origin:top;transition:transform .6s var(--ease)}
     .page-overlay.show{transform:scaleY(1)}
 
-    /* HERO */
+
     .hero{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center;padding:60px 0 80px;position:relative}
     .hero-card{background:linear-gradient(135deg,var(--glass),var(--glass-2));border-radius:24px;padding:44px;box-shadow:0 16px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.05);position:relative;overflow:hidden}
     .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(255,184,77,0.1);color:var(--accent);font-weight:700;margin-bottom:16px;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
@@ -57,7 +57,6 @@
     p.lead{margin:0;color:var(--muted);font-size:1.08rem;line-height:1.6}
     .hero-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
 
-    /* Hero visual with image placeholders */
     .hero-visual{height:480px;border-radius:24px;background:linear-gradient(135deg,#0f1826 0%, #0a1420 100%);display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05)}
     .gallery-tile{background:linear-gradient(135deg,#0d1624 0%, #0a1220 100%);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;transition:transform .4s var(--ease), box-shadow .4s;border:1px solid rgba(255,255,255,0.03);overflow:hidden}
     .gallery-tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,0.5);border-color:rgba(255,255,255,0.08)}
@@ -67,13 +66,13 @@
     .tile-caption{font-size:13px;font-weight:700;color:#fff;margin:0}
     .tile-meta{font-size:11px;color:var(--muted);margin:0}
 
-    /* SECTIONS */
+
     section{margin:80px 0;position:relative}
     .section-header{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
     .section-title{font-size:32px;font-weight:900;background:linear-gradient(135deg, #fff 0%, #b8d4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .section-sub{color:var(--muted);font-size:16px;margin-top:4px}
 
-    /* Exhibitions calendar */
+
     .calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
     .event-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:24px;border-radius:18px;min-height:160px;display:flex;flex-direction:column;gap:12px;transition:all .4s var(--ease);border:1px solid rgba(255,255,255,0.05);position:relative;overflow:hidden}
     .event-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg, var(--accent), var(--accent-2));transform:scaleX(0);transition:transform .4s var(--ease)}
@@ -82,7 +81,7 @@
     .date-pill{background:rgba(255,184,77,0.12);padding:8px 12px;border-radius:10px;font-weight:700;color:var(--accent);display:inline-block;font-size:13px;border:1px solid rgba(255,184,77,0.2)}
     .event-card h3{margin:4px 0;font-size:20px;font-weight:800}
 
-    /* Featured people with image placeholders */
+
     .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
     .artist-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);transition:all .45s var(--ease);position:relative;overflow:hidden}
     .artist-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(127,211,255,0.05), transparent);opacity:0;transition:opacity .45s}
@@ -93,7 +92,7 @@
     .artist-name{font-weight:800;font-size:18px;margin-bottom:4px}
     .artist-bio{color:var(--muted);font-size:14px}
 
-    /* Visitor info */
+
     .visit-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
     .ticket{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:28px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
     .ticket h3{margin:0 0 20px;font-size:24px;font-weight:800}
@@ -104,11 +103,11 @@
 
     footer{padding:48px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.05)}
 
-    /* SCROLL REVEALS */
+   
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
     .reveal.show{opacity:1;transform:translateY(0)}
 
-    /* RESPONSIVE */
+
     @media (max-width:960px){
       .hero{grid-template-columns:1fr;gap:24px}
       .hero-visual{height:360px;grid-template-columns:1fr;padding:16px}
@@ -305,7 +304,7 @@
       <div class="grid-cards">
         <article class="artist-card">
           <div class="artist-photo">
-            <!-- Replace with: <img src="images/siddhanth-banik.jpg" alt="Siddhanth Banik" style="width:100%;height:100%;object-fit:cover;border-radius:14px"> -->
+            <!-- Replace with: <img src="images/artist1.jpg" alt="Siddhanth Banik" style="width:100%;height:100%;object-fit:cover;border-radius:14px"> -->
             <span style="position:relative;z-index:1">SB</span>
           </div>
           <div>
@@ -316,7 +315,7 @@
 
         <article class="artist-card">
           <div class="artist-photo">
-            <!-- Replace with: <img src="images/sagie-medvinsky.jpg" alt="Sagie Medvinsky"> -->
+            <!-- Replace with: <img src="images/artist2.jpg" alt="Sagie Medvinsky"> -->
             <span style="position:relative;z-index:1">SM</span>
           </div>
           <div>
@@ -327,7 +326,7 @@
 
         <article class="artist-card">
           <div class="artist-photo">
-            <!-- Replace with: <img src="images/mr-staton.jpg" alt="Mr. Staton"> -->
+            <!-- Replace with: <img src="images/artist3.jpg" alt="Mr. Staton"> -->
             <span style="position:relative;z-index:1">MS</span>
           </div>
           <div>
@@ -337,7 +336,7 @@
         </article>
 
         <article class="artist-card">
-          <div class="artist-photo"><img src="images/mrs-gardener.jpg" alt="Mrs. Gardener">
+          <div class="artist-photo"><img src="images/artist4.jpg" alt="Mrs. Gardener">
           </div>
           <div>
             <div class="artist-name">Mrs. Gardener</div>
