@@ -1,4 +1,4 @@
-<!doctype html>
+'<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -84,14 +84,19 @@
 
 
     .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
-    .artist-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);transition:all .45s var(--ease);position:relative;overflow:hidden}
+    .artist-card{background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,0.05);transition:all .45s var(--ease);position:relative;overflow:visible;cursor:pointer}
     .artist-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right, rgba(127,211,255,0.05), transparent);opacity:0;transition:opacity .45s}
     .artist-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.1)}
     .artist-card:hover::before{opacity:1}
+    .artist-card.expanded{z-index:10}
     .artist-photo{width:100%;height:200px;border-radius:14px;object-fit:cover;background:linear-gradient(135deg,#1a3f5f,#5b1a75);margin-bottom:14px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:48px;font-weight:900;position:relative;overflow:hidden}
     .artist-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);animation:shimmer 4s infinite}
     .artist-name{font-weight:800;font-size:18px;margin-bottom:4px}
     .artist-bio{color:var(--muted);font-size:14px}
+    .artist-bio-panel{position:absolute;top:0;left:100%;width:300px;height:100%;background:linear-gradient(135deg,#0f1826,#0a1420);border-radius:20px;padding:24px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.6);opacity:0;transform:translateX(-20px);transition:all .5s var(--ease);pointer-events:none;z-index:5}
+    .artist-card.expanded .artist-bio-panel{opacity:1;transform:translateX(16px);pointer-events:auto}
+    .close-bio{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-weight:300;transition:all .3s var(--ease)}
+    .close-bio:hover{background:rgba(255,255,255,0.2);transform:scale(1.1)}
 
 
     .visit-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
