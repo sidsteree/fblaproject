@@ -94,37 +94,51 @@
     .artist-name{font-weight:800;font-size:18px;margin-bottom:4px}
     .artist-bio{color:var(--muted);font-size:14px}
     .artist-bio-panel{
-      position:absolute;
-      top:100%;
-      left:0;
-      right:0;
-      width:100%;
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%) scale(0.8);
+      width:90%;
+      max-width:500px;
       background:linear-gradient(135deg,#0f1826,#0a1420);
       border-radius:20px;
       padding:24px;
-      margin-top:12px;
       border:1px solid rgba(255,184,77,0.3);
       box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255,184,77,0.2), inset 0 1px 0 rgba(255,184,77,0.2);
       opacity:0;
-      max-height:0;
       overflow:hidden;
-      transform:translateY(-20px);
       transition:all .5s var(--ease);
       pointer-events:none;
-      z-index:5;
+      z-index:200;
     }
 
     .artist-card.expanded .artist-bio-panel{
       opacity:1;
-      max-height:500px;
-      transform:translateY(0);
+      transform:translate(-50%, -50%) scale(1);
       pointer-events:auto;
     }
 
     .artist-card.expanded{
       box-shadow:0 28px 56px rgba(0,0,0,0.4), 0 0 40px rgba(255,184,77,0.3);
       border-color:rgba(255,184,77,0.4);
-    }   
+      z-index:199;
+    }
+
+    .artist-card.expanded::after{
+      content:'';
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.7);
+      backdrop-filter:blur(8px);
+      z-index:150;
+      animation:fadeIn .3s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+    
     .close-bio{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-weight:300;transition:all .3s var(--ease)}
     .close-bio:hover{background:rgba(255,255,255,0.2);transform:scale(1.1)}
 
